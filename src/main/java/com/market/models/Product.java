@@ -1,9 +1,17 @@
 package com.market.models;
 
 import java.util.Date;
+
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import org.springframework.data.annotation.Id;
 
 public class Product {
+	
+	@ManyToOne
+	@JoinColumn(name = "created_by_id")
+	private Person createdBy;
 
 	@Id
 	private String id;
@@ -16,10 +24,26 @@ public class Product {
 	String urlImage;
 	boolean status;
 	Date registerDate;
+	
 
 	public Product(String id, String name, String code, float price, String type, int quantity, String urlImage,
 			boolean status, Date registerDate) {
 		super();
+		this.id = id;
+		this.name = name;
+		this.code = code;
+		this.price = price;
+		this.type = type;
+		this.quantity = quantity;
+		this.urlImage = urlImage;
+		this.status = status;
+		this.registerDate = registerDate;
+	}
+
+	public Product(Person createdBy, String id, String name, String code, float price, String type, int quantity,
+			String urlImage, boolean status, Date registerDate) {
+		super();
+		this.createdBy = createdBy;
 		this.id = id;
 		this.name = name;
 		this.code = code;
@@ -101,6 +125,14 @@ public class Product {
 
 	public void setRegisterDate(Date registerDate) {
 		this.registerDate = registerDate;
+	}
+
+	public Person getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(Person createdBy) {
+		this.createdBy = createdBy;
 	}
 
 }
